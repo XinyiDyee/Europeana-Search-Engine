@@ -1,1 +1,2 @@
 
+Calculate entropy for text
