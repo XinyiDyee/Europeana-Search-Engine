@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="../static/css/search_results.css">
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <title>Search results</title>
+</head>
+<style type="text/css">
+	body{
+	    background-attachment: fixed;
+		background-image:url({{ url_for('static', filename='img/backgrounds/background.jpg') }});
+		background-size: cover;
+		position: relative;
+	}
+    a:hover{text-decoration:none;color: #da1d85;}
+    #list::-webkit-scrollbar {
+        display: none;
+    }
+    .banner{
+    position:fixed;
+    left:40px;
+    z-index: 999;
+    display: inline-block;
+}
+.lang{
+    font-size: 20px;
+    font-family:Times new roman;
+    position: fixed;
+    top: 25px;
+    right: 140px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.search .parent{
+	position: fixed;
+	right:450px;
+	top: 18px;
+}
+.banner .search .search2{
+	width: 380px;
+	height: 40px;
+	top: 18px;
+	left:700px;
+	border-radius: 18px;
+	outline: none;
+	border:1px solid #ccc;
+	padding-left: 20px;
+	position: absolute;
+}
+.banner .search .btn{
+	height: 60px;
+	width: 60px;
+	position: absolute;
+	object-fit: cover;
+	background: url('../img/icons/search6.ico') no-repeat;
+	top: 23px;
+	border:none;
+	outline: none;
+	}
+</style>
+</head>
+<body>
+
+	<div class="banner">
+        <div style="position:fixed;top:25px;left:40px;">
+            <a href="{{url_for('homepage')}}" style="color:#fff;font-size:28px;font-family:Times new roman;font-weight: bold;">La Clef du cabinet des princes de l'Europe</a>
+        </div>
+        <div class="lang">EN / FR</div>
+        <form action="http://localhost:5000/search/" method="POST" >
+            <div class="search">
+                <form action="" class="parent">
+                    <input type="text" class="search2" placeholder="Search..." name="input">
+                    <input type="submit" name="" id="" class="btn" value="" style="left:1030px">
+                </form>
+            </div>
+        </form>
+	</div>
+    <div class="container" style="width: 1300px; position:fixed; top:100px;left:50px;overflow: overlay;height:800px;color: #fff;">
+        {% for i in u1 %}
+            <div class="col-md-5" style="width:400px;">
+                <div class="row"><img src="{{ i[0] }}" style="height: 600px;"></a></div>
+                <div class="row" style="display:inline-block; left:100px;position:relative;"><a href="{{url_for('details',id=identifier,page=page_previous)}}"><img src="{{ url_for('static', filename='img/icons/previous.png') }}" style="width: 30px;"></a></div>
+                <div class="row" style="display:inline-block; left:210px;position:relative;"><a href="{{url_for('details',id=identifier,page=page_next)}}"><img src="{{ url_for('static', filename='img/icons/next.png') }}" style="width: 30px;"></a></div>
+            </div>
+            <div class="col-md-5" style="font-family: 'Times New Roman';">
+                <div class="row" style="font-size:16.5px;">{{ i[3] }}</div>
+                <br>
+                <div class="row" style="font-size:18px;"><b>Publication Time: </b>{{ i[1] }}.{{i[2]}}</div>
+            </div>
+        {% endfor %}
+        <div class="col-md-3" style="font-size:18px;font-family: 'Times New Roman';">
+            <p style="font-size:18px;">Entities in the text</p>
+            <ul id="listView" style="height:600px;overflow: overlay;">
+                {% for j in u2 %}
+                <li><a href="{{ j[1] }}" style="color:#fff;">{{ j[0] }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
