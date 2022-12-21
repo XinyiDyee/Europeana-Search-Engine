@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+	<link rel="stylesheet" type="text/css" href="../static/css/search_results.css">
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <title>Search results</title>
+</head>
+<style type="text/css">
+	body{
+	    background-attachment: fixed;
+		background-image:url('../static/img/backgrounds/background.jpg');
+		background-size: cover;
+		position: relative;
+	}
+    a:hover{text-decoration:none;color: #da1d85;}
+    #list::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+	<div class="banner">
+        <div style="position:fixed;top:25px;left:40px;">
+            <a href="{{url_for('homepage')}}" style="color:#fff;font-size:28px;font-family:Times new roman;font-weight: bold;">La Clef du cabinet des princes de l'Europe</a>
+        </div>
+<div class="lang">
+			EN / FR
+		</div>
+		<form action="http://localhost:5000/search/" method="POST" >
+			<div class="search">
+				<form action="" class="parent">
+					<input type="text" class="search2" placeholder="Search..." name="input">
+					<input type="submit" name="" id="" class="btn" value="" style="left:1030px">
+				</form>
+			</div>
+		</form>
+	</div>
+    <div id="list" style="width: 900px;position: absolute;top: 120px;left: 230px;overflow: overlay;height:800px;">
+        <div class="container" style="width: 900px;">
+            {% for i in u %}
+            <div class="row" style="height: 275px;">
+                <div class="col-md-3">
+                    <a href="{{url_for('details',id=i[0],page=i[1])}}"><img src="{{ i[2] }}" style="width: 103px;"></a>
+                </div>
+                <div class="col-md-9" style="font-size:18px;font-family: 'Times New Roman';">
+                    <a href="{{url_for('details',id=i[0],page=i[1])}}" style="text-decoration: none; color:#fff;">{{ i[3] | truncate(500)}} </a>
+                </div>
+            </div>
+            {% endfor %}
+         </div>
+    </div>
+</body>
+</html>
